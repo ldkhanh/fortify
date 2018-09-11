@@ -1,5 +1,8 @@
 package com.techinterview.ipvalidation;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class IpValidator {
 
     /**
@@ -38,6 +41,23 @@ public class IpValidator {
      * @return true if provided IP address is covered by the CIDR range; false otherwise.
      */
     public static boolean validateIpAddress(String ipAddress, String cidrRange) {
-        return false;
+        Pattern pattern = Pattern.compile(cidrRange);
+        Matcher matcher = pattern.matcher(ipAddress);
+        return matcher.matches();
+    }
+
+    public static void main(String[] args) {
+        String cidrPattern = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/(\\d|[1-2]\\d|3[0-2]))?$";
+        String ipAddress = "192.168.43.0/24";
+        if (validateIpAddress(ipAddress, cidrPattern))
+            System.out.println("Valid IP address");
+        else
+            System.out.println("Not Valid IP address");
+
+        String ipAddress2 = "192.355.43.0/24";
+        if (validateIpAddress(ipAddress2, cidrPattern))
+            System.out.println("Valid IP address");
+        else
+            System.out.println("Not Valid IP address");
     }
 }
