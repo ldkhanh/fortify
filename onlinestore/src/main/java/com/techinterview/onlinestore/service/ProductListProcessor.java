@@ -64,14 +64,11 @@ public class ProductListProcessor {
         for (Product p : products) {
             sb.append(p.getName()).append(Space);
             sb.append(OpenBr).append(p.getGuid()).append(CloseBr).append(Separator).append(Space);
-            if (p instanceof BackPack) {
-                sb.append(this.getDesc((BackPack) p));
-            } else if (p instanceof SmartPhone) {
-                sb.append(this.getDesc((SmartPhone) p));
-            }
+            sb.append(this.getDesc(p));     // this product processor extensible any type of Product
         }
         return sb.toString();
     }
+    // This function can parse description any type of Product into String format
     private String getDesc(Product po) {
         StringBuilder sb = new StringBuilder();
         try {
